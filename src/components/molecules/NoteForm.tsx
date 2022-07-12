@@ -6,15 +6,15 @@ import { useAppSelector } from '@/hooks';
 import { selectHttpState } from '@/redux/reducers/http/httpSlice';
 
 interface NoteFormProps {
-  data: NoteFormParams | null,
+  dataSet: NoteFormParams | null,
 }
 
-const NoteForm: React.FC<NoteFormProps> = ({data}) => {
-  const {noteCreate, noteUpdate} = useAppSelector(selectHttpState);
-  const {loading: createLoading, success: createSuccess} = noteCreate;
-  const {loading: updateLoading, success: updateSuccess} = noteUpdate;
+const NoteForm: React.FC<NoteFormProps> = ({ dataSet }) => {
+  const { noteCreate, noteUpdate } = useAppSelector(selectHttpState);
+  const { loading: createLoading, success: createSuccess } = noteCreate;
+  const { loading: updateLoading, success: updateSuccess } = noteUpdate;
 
-  const reloadNotes = () => getMyNotes({search: ''});
+  const reloadNotes = () => getMyNotes({ search: '' });
 
   useEffect(() => {
     if (createSuccess) {
@@ -34,20 +34,21 @@ const NoteForm: React.FC<NoteFormProps> = ({data}) => {
     <div>
       <Formik
         initialValues={{
-          title: data?.title,
-          body: data?.body,
+          title: dataSet?.title,
+          body: dataSet?.body,
+          id: dataSet?.id
         }}
         enableReinitialize={true}
         onSubmit={async (values, formikProps) => {
-          const {setSubmitting} = formikProps;
+          const { setSubmitting } = formikProps;
 
           const data: NoteFormParams = {
             title: values.title,
             body: values.body,
+            id: values?.id
           };
 
-          if (Number(data.id) > 0) {
-            data.id = data.id ?? 0;
+          if (Number(data?.id) > 0) {
             updateNote(data);
           } else {
             createNote(data);
@@ -57,7 +58,7 @@ const NoteForm: React.FC<NoteFormProps> = ({data}) => {
         }}
       >
         {(formikProps) => {
-          const {values, handleChange, handleSubmit} = formikProps;
+          const { values, handleChange, handleSubmit } = formikProps;
           return (
             <form onSubmit={handleSubmit}>
               <div>
@@ -69,7 +70,16 @@ const NoteForm: React.FC<NoteFormProps> = ({data}) => {
                   <h4>Saving post...</h4>
                 )}
               </div>
-              {data?.id}
+              {dataSet?.id}
+              <div>
+                <input
+                  type={"text"}
+                  name={"id"}
+                  placeholder={"Enter id"}
+                  value={values.id}
+                  onChange={handleChange}
+                />
+              </div>
               <div>
                 <input
                   type={"text"}

@@ -51,6 +51,7 @@ const NoteList: React.FC<NoteListProps> = ({onEdit}) => {
           <table>
             <thead>
             <tr>
+              <th>id</th>
               <th>Title</th>
               <th>Description</th>
             </tr>
@@ -58,6 +59,7 @@ const NoteList: React.FC<NoteListProps> = ({onEdit}) => {
             <tbody>
             {notes && notes?.length > 0 && notes?.map((item: any, index: number) => (
               <tr key={index}>
+                <td>{item?.id}</td>
                 <td>{item?.title}</td>
                 <td>{item?.body}</td>
                 <td>

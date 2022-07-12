@@ -6,10 +6,10 @@ export const endpoints = {
   },
 
   note: {
-    list: (params: NoteFilterParams) => `/posts?search=${params.search}`,
-    create: () => `/posts`,
-    update: (id: NoteFormParams['id']) => `/posts/${id}`,
-    delete: (id: NoteFormParams['id']) => `/posts/${id}`,
+    list: (params: NoteFilterParams) => `/notes`,
+    create: () => `/notes/`,
+    update: (id: NoteFormParams['id']) => `/notes/${id}/`,
+    delete: (id: NoteFormParams['id']) => `/notes/${id}/`,
   },
 
   blog: {

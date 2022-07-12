@@ -45,7 +45,7 @@ export const httpSlice = createSlice({
         builder.addCase(performHttpCall.pending, (state, {meta}) => {
             (state as any)[meta.arg.correlationKey] = {
                 ...(state as any)[meta.arg.correlationKey],
-                success: false,
+                success: true,
                 loading: true,
                 error: null,
             };
@@ -62,7 +62,7 @@ export const httpSlice = createSlice({
             (state as any)[meta.arg.correlationKey] = {
                 ...(state as any)[meta.arg.correlationKey],
                 loading: false,
-                success: true,
+                success: false,
                 error: null,
                 data: payload?.data,
             };

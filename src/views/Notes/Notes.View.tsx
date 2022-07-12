@@ -14,7 +14,7 @@ const NotesView = () => {
           <NoteList onEdit={(note) => setEditNote(note)} />
         </div>
         <div>
-          <NoteForm data={editNote} />
+          <NoteForm dataSet={editNote} />
         </div>
       </div>
     </div>
